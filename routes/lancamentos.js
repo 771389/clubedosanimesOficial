@@ -29,9 +29,13 @@ router.get('/lancamentos', (req, res) => {
          
           const data = JSON.parse(responseData);
 
-
-
+          if (data.length > 0 && data[0].image) {
+            const baseUrlForImages = 'https://cdn.appanimeplus.tk/img/';
+            data[0].image = baseUrlForImages + data[0].image;
+          }
+  
           res.send(data);
+
         } catch (error) {
           console.error('Erro ao analisar JSON:', error);
           res.status(500).send('Erro ao analisar a resposta da API');

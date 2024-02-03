@@ -8,7 +8,7 @@ const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 
 
 async function carregarEpisodiosDoAnime(animeId) {
   try {
-    // Faça uma requisição à API para obter os dados dos episódios do anime
+
     const response = await axios.get(`https://animeland.appanimeplus.tk/videoweb/api.php?action=category_videos&category_id=${animeId}`, {
       headers: {
         'User-Agent': userAgent,
@@ -26,7 +26,6 @@ async function carregarEpisodiosDoAnime(animeId) {
   }
 }
 
-// Rota para o episódio anterior
 router.get('/episodios/anterior/:animeId/:currentEpisodeId', async (req, res) => {
   try {
     const animeId = req.params.animeId;

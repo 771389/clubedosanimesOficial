@@ -27,6 +27,17 @@ router.get('/pesquisar/:name', (req, res) => {
       if (response.status === 200) {
      
         const data = response.data;
+
+        if (data.length > 0) {
+          const baseUrlForImages = 'https://cdn.appanimeplus.tk/img/';
+          
+          data.forEach(item => {
+            if (item.category_icon) {
+              item.category_icon = baseUrlForImages + item.category_icon;
+            }
+          });
+        }
+
         res.send(data);
       } else {
         console.log(`A solicitação falhou com o código de status: ${response.status}`);

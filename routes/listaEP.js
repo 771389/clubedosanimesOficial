@@ -18,7 +18,6 @@ router.get('/episodios/:id', (req, res) => {
       if (response.status === 200) {
         const data = response.data;
 
-        // Ordene os episódios com base no número do episódio (numeroEpisodio)
         data.sort((a, b) => {
           const numeroEpisodioA = a.numeroEpisodio || Number.MAX_SAFE_INTEGER;
           const numeroEpisodioB = b.numeroEpisodio || Number.MAX_SAFE_INTEGER;
