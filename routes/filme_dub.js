@@ -4,8 +4,7 @@ const axios = require('axios');
 
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36';
 
-router.get('/dublados', (req, res) => {
-
+router.get('/dublados', async (req, res) => {
   const apiUrl = 'https://animeland.appanimeplus.tk/videoweb/api.php?action=searchvideo&searchword=filme';
 
   const axiosConfig = {
@@ -14,35 +13,30 @@ router.get('/dublados', (req, res) => {
     },
   };
 
-  axios.get(apiUrl, axiosConfig)
-    .then((response) => {
+  try {
+    const response = await axios.get(apiUrl, axiosConfig);
 
-      if (response.status === 200) {
+    if (response.status === 200) {
+      const data = response.data;
 
-        const data = response.data;
+      const filteredData = data.filter(item => item.category_name && item.category_name.toLowerCase().includes('dublado'));
 
-        const filteredData = data.filter(item => item.category_name && item.category_name.toLowerCase().includes('dublado'));
-
-        if (filteredData.length > 0) {
-          const baseUrlForImages = 'https://cdn.appanimeplus.tk/img/';
-          
-          filteredData.forEach(item => {
-            if (item.category_icon) {
-              item.category_icon = baseUrlForImages + item.category_icon;
-            }
-          });
+      const baseUrlForImages = 'https://cdn.appanimeplus.tk/img/';
+      filteredData.forEach(item => {
+        if (item.category_icon && !item.category_icon.startsWith('http')) {
+          item.category_icon = baseUrlForImages + item.category_icon;
         }
+      });
 
-        res.send(filteredData);
-      } else {
-        console.log(`A solicitação falhou com o código de status: ${response.status}`);
-        res.status(response.status).send(`Erro na solicitação: ${response.status}`);
-      }
-    })
-    .catch((error) => {
-      console.error('Ocorreu um erro na solicitação:', error);
-      res.status(500).send('Erro interno do servidor');
-    });
+      res.json(filteredData);
+    } else {
+      console.error(`A solicitação falhou com o código de status: ${response.status}`);
+      res.status(response.status).send(`Erro na solicitação: ${response.status}`);
+    }
+  } catch (error) {
+    console.error('Ocorreu um erro na solicitação:', error);
+    res.status(500).send('Erro interno do servidor');
+  }
 });
 
 module.exports = router;
