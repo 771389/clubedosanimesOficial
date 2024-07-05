@@ -1,4 +1,7 @@
-[
+const express = require('express');
+const router = express.Router();
+
+const categorias = [
     {"title": "Ação", "slug": "acao"},
     {"title": "Aventura", "slug": "aventura"},
     {"title": "Comédia", "slug": "comedia"},
@@ -31,9 +34,15 @@
     {"title": "Artes Marciais", "slug": "artes-marciais"},
     {"title": "Ecchi", "slug": "ecchi"},
     {"title": "Gore", "slug": "gore"},
-    {"title": "Mecha", "slug": "mecha"},
     {"title": "Super Poderes", "slug": "super-poderes"},
     {"title": "Thriller", "slug": "thriller"},
     {"title": "Vida Escolar", "slug": "vida-escolar"},
     {"title": "Paródia", "slug": "parodia"}
-]
+];
+
+// Rota para categorias
+router.get('/categorias', (req, res) => {
+  res.json(categorias);
+});
+
+module.exports = router;
