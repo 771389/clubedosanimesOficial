@@ -48,7 +48,7 @@ const categories = [
   { title: "Paranormal", slug: "paranormal" },
 ];
 
-router.get('/home/categories/slug/:slug', (req, res) => {
+router.get('/categories/slug/:slug', (req, res) => {
   const { slug } = req.params;
   const category = categories.find(cat => cat.slug === slug);
 
