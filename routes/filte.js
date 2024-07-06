@@ -4,6 +4,7 @@ const router = express.Router();
 const categories = [
   { title: "Ação", slug: "acao" },
   { title: "Aventura", slug: "aventura" },
+  { title: "Ficção Científica", slug: "ficcao-cientifica" },
   { title: "Comédia", slug: "comedia" },
   { title: "Drama", slug: "drama" },
   { title: "Slice of Life", slug: "slice-of-life" },
