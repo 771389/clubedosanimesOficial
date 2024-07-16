@@ -20,8 +20,8 @@ router.get('/detalhes/:id', (req, res) => {
   const axiosConfig = {
     headers: {
       'User-Agent': userAgent,
-      timeout: 5000  // Timeout de 5 segundos
     },
+    timeout: 5000  // Timeout de 5 segundos
   };
 
   axios.get(apiUrl, axiosConfig)
@@ -29,8 +29,14 @@ router.get('/detalhes/:id', (req, res) => {
       if (response.status === 200) {
         const data = response.data;
 
-        // Verifique se `category_icon` está presente nos dados e concatene a base URL
-        if (data && data.category_icon) {
+        // Se a resposta for uma lista de objetos
+        if (Array.isArray(data)) {
+          data.forEach(item => {
+            if (item.category_icon) {
+              item.category_icon = `${baseImageUrl}${item.category_icon}`;
+            }
+          });
+        } else if (data.category_icon) { // Se for um objeto único
           data.category_icon = `${baseImageUrl}${data.category_icon}`;
         }
 
