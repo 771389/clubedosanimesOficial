@@ -4,11 +4,13 @@ const axios = require('axios');
 
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36';
 
+// Defina a base URL da imagem
 const baseImageUrl = 'https://cdn.appanimeplus.tk/img/';
 
 router.get('/detalhes/:id', (req, res) => {
   const itemId = req.params.id;
 
+  // Validação básica do itemId
   if (!itemId || isNaN(itemId)) {
     return res.status(400).send('Parâmetro id inválido');
   }
@@ -18,7 +20,7 @@ router.get('/detalhes/:id', (req, res) => {
   const axiosConfig = {
     headers: {
       'User-Agent': userAgent,
-      timeout: 5000
+      timeout: 5000  // Timeout de 5 segundos
     },
   };
 
@@ -27,6 +29,7 @@ router.get('/detalhes/:id', (req, res) => {
       if (response.status === 200) {
         const data = response.data;
 
+        // Verifique se `category_icon` está presente nos dados e concatene a base URL
         if (data && data.category_icon) {
           data.category_icon = `${baseImageUrl}${data.category_icon}`;
         }
