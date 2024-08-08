@@ -11,6 +11,9 @@ const routespopulares = require('./routes/populares');
 const routespesquisar = require('./routes/pesquisar');
 const routeseps = require('./routes/listaEP');
 const routesimg = require('./routes/imagens');
+const routescategorias = require('./routes/categorias');
+const routescategoria = require('./routes/categoria');
+const routesfilte = require('./routes/filte');
 
 
 const app = express();
@@ -21,6 +24,9 @@ app.use(cors());
 
 app.use('/', routesimg);
 app.use('/home', routesanmdub);
+app.use('/home', routescategorias);
+app.use('/home', routescategoria);
+app.use('/home', routesfilte);
 app.use('/home', routesanmleg);
 app.use('/home', routeslancamentos);
 app.use('/home', routespopulares);
@@ -30,8 +36,6 @@ app.use('/anime', routesdetalhes);
 app.use('/anime', routesepisodios);
 app.use('/anime', routeseps);
 app.use('/anime', routespesquisar);
-
-
 
 app.get('*', (req, res) => {
   res.status(404).json({
