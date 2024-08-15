@@ -24,8 +24,14 @@ router.get('/lancamentos', async (req, res) => {
 
         const baseUrlForImages = 'https://cdn.appanimeplus.tk/img/';
         data.forEach(item => {
+          // Atualiza a URL da imagem se necessário
           if (item.image && !item.image.startsWith('http')) {
             item.image = baseUrlForImages + item.image;
+          }
+
+          // Deixa apenas o nome do anime, removendo qualquer outra parte
+          if (item.title) {
+            item.title = item.title.split('E')[0].trim(); // Pega apenas a parte antes dos dois pontos
           }
         });
 
