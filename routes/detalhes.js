@@ -28,18 +28,6 @@ router.get('/detalhes/:id', (req, res) => {
     .then((response) => {
       if (response.status === 200) {
         const data = response.data;
-
-        // Se a resposta for uma lista de objetos
-        if (Array.isArray(data)) {
-          data.forEach(item => {
-            if (item.category_icon) {
-              item.category_icon = `${baseImageUrl}${item.category_icon}`;
-            }
-          });
-        } else if (data.category_icon) { // Se for um objeto único
-          data.category_icon = `${baseImageUrl}${data.category_icon}`;
-        }
-
         res.send(data);
       } else {
         console.log(`A solicitação falhou com o código de status: ${response.status}`);
