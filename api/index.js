@@ -2,22 +2,22 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
-const { router: authRoutes, verifyToken } = require('./routes/auth');
+const { router: authRoutes, verifyToken } = require('./auth');
 
-const routesanmdub = require('./routes/anime_dub');
-const routesanmleg = require('./routes/anime_leg');
-const routesfilmedub = require('./routes/filme_dub');
-const routesfilmeleg = require('./routes/filme_leg');
-const routeslancamentos = require('./routes/lancamentos');
-const routesdetalhes = require('./routes/detalhes');
-const routesepisodios = require('./routes/episodios');
-const routespopulares = require('./routes/populares');
-const routespesquisar = require('./routes/pesquisar');
-const routeseps = require('./routes/listaEP');
-const routesimg = require('./routes/imagens');
-const routescategorias = require('./routes/categorias');
-const routescategoria = require('./routes/categoria');
-const routesfilte = require('./routes/filte');
+const routesanmdub = require('../routes/anime_dub');
+const routesanmleg = require('../routes/anime_leg');
+const routesfilmedub = require('../routes/filme_dub');
+const routesfilmeleg = require('../routes/filme_leg');
+const routeslancamentos = require('../routes/lancamentos');
+const routesdetalhes = require('../routes/detalhes');
+const routesepisodios = require('../routes/episodios');
+const routespopulares = require('../routes/populares');
+const routespesquisar = require('../routes/pesquisar');
+const routeseps = require('../routes/listaEP');
+const routesimg = require('../routes/imagens');
+const routescategorias = require('../routes/categorias');
+const routescategoria = require('../routes/categoria');
+const routesfilte = require('../routes/filte');
 
 
 dotenv.config();
