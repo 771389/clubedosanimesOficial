@@ -1,6 +1,5 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -36,7 +35,6 @@ router.post('/login', (req, res) => {
     return res.status(401).json({ error: "Senha incorreta" });
   }
 
-  const token = generateToken(user);
   res.json({ token });
 });
 
