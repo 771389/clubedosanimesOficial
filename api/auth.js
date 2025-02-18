@@ -1,31 +1,47 @@
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+const router = express.Router();
+
+// Credenciais fixas
+const USERNAME = "ojusticeirobr";
+const PASSWORD = "ojusticeirobr";
+
+// Gerar Token JWT
 router.post('/login', (req, res) => {
-  try {
-    console.log("🚀 Recebendo tentativa de login:", req.body); // Log para ver os dados recebidos
+  const { username, password } = req.body;
 
-    const { username, password } = req.body;
-
-    if (!username || !password) {
-      console.log("❌ Falha no login: Usuário ou senha vazios");
-      return res.status(400).json({ error: "Preencha usuário e senha" });
-    }
-
-    if (username !== USERNAME || password !== PASSWORD) {
-      console.log("❌ Falha no login: Credenciais inválidas");
-      return res.status(401).json({ error: "Credenciais inválidas" });
-    }
-
-    if (!process.env.JWT_SECRET) {
-      console.error("⚠️ Erro: JWT_SECRET não definido!");
-      return res.status(500).json({ error: "Erro interno no servidor: JWT_SECRET ausente" });
-    }
-
-    const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" });
-
-    console.log("✅ Login bem-sucedido! Token gerado:", token);
-    res.json({ token });
-
-  } catch (error) {
-    console.error("💥 Erro inesperado no login:", error);
-    res.status(500).json({ error: "Erro interno no servidor" });
+  if (!process.env.JWT_SECRET) {
+    return res.status(500).json({ error: "Erro interno: JWT_SECRET não está definido" });
   }
+
+  if (username !== USERNAME || password !== PASSWORD) {
+    return res.status(401).json({ error: "Credenciais inválidas" });
+  }
+
+  const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+  res.json({ token });
 });
+
+// Middleware para proteger rotas
+const verifyToken = (req, res, next) => {
+  const token = req.header('Authorization');
+
+  if (!token) {
+    return res.status(403).json({ error: "Acesso negado! Token ausente" });
+  }
+
+  try {
+    const decoded = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: "Token inválido ou expirado" });
+  }
+};
+
+module.exports = { router, verifyToken };
