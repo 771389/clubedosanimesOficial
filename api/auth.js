@@ -5,37 +5,43 @@ const dotenv = require('dotenv');
 dotenv.config();
 const router = express.Router();
 
-// Credenciais fixas
+// Credenciais fixas (mude para um sistema mais seguro no futuro)
 const USERNAME = "ojusticeirobr";
 const PASSWORD = "ojusticeirobr";
 
-// Gerar Token JWT
+// Rota de login para gerar um token JWT
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
-  
+
   if (username !== USERNAME || password !== PASSWORD) {
     return res.status(401).json({ error: "Credenciais inválidas" });
   }
 
+  // Gerar token
   const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-  res.json({ token });
+  res.json({ 
+    message: "Login realizado com sucesso!",
+    token, 
+    expiresIn: "1h"
+  });
 });
 
 // Middleware para proteger rotas
 const verifyToken = (req, res, next) => {
-  const token = req.header('Authorization');
-  
+  let token = req.header('Authorization');
+
   if (!token) {
-    return res.status(403).json({ error: "Acesso negado! Token ausente" });
+    return res.status(403).json({ error: "Acesso negado! Token ausente." });
   }
 
   try {
-    const decoded = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET);
+    token = token.replace('Bearer ', ''); // Remover prefixo "Bearer " se existir
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
   } catch (error) {
-    res.status(401).json({ error: "Token inválido ou expirado" });
+    return res.status(401).json({ error: "Token inválido ou expirado." });
   }
 };
 

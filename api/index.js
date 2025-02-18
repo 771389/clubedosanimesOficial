@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 // Configurar variáveis de ambiente
 dotenv.config();
 
-const { router: authRoutes, verifyToken } = require('./api/auth');
+const { router: authRoutes, verifyToken } = require('./auth');
 
 // Importação correta das rotas
 const routesanmdub = require('./routes/anime_dub');
