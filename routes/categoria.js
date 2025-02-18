@@ -7,7 +7,7 @@ const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 
 // Rota para buscar animes por gênero
 router.get('/categoria/:genero', async (req, res) => {
   const { genero } = req.params;
-  const apiUrl = `https://animeland.appanimeplus.tk/videoweb/api.php?action=searchgenre&searchword=${genero}`;
+  const apiUrl = `https://animeland.atv2.net/videoweb/api.php?action=searchgenre&searchword=${genero}`;
 
   const axiosConfig = {
     headers: {
@@ -20,7 +20,7 @@ router.get('/categoria/:genero', async (req, res) => {
     if (response.status === 200) {
       const data = response.data;
 
-      const baseUrlForImages = 'https://cdn.appanimeplus.tk/img/';
+      const baseUrlForImages = 'https://cdn.atv2.net/img/';
       data.forEach(item => {
         if (item.category_icon && !item.category_icon.startsWith('http')) {
           item.category_icon = baseUrlForImages + item.category_icon;

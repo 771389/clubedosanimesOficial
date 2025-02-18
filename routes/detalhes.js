@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require('axios');
 
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36';
-const baseImageUrl = 'https://cdn.appanimeplus.tk/img/';
+const baseImageUrl = 'https://cdn.atv2.net/img/';
 
 router.get('/detalhes/:id', async (req, res) => {
   const itemId = parseInt(req.params.id, 10);
@@ -12,7 +12,7 @@ router.get('/detalhes/:id', async (req, res) => {
     return res.status(400).send('Parâmetro id inválido');
   }
 
-  const apiUrl = `https://animeland.appanimeplus.tk/videoweb/api.php?action=viewcategory&categoryid=${itemId}`;
+  const apiUrl = `https://animeland.atv2.net/videoweb/api.php?action=viewcategory&categoryid=${itemId}`;
 
   const axiosConfig = {
     headers: {
@@ -27,7 +27,6 @@ router.get('/detalhes/:id', async (req, res) => {
     if (response.status === 200) {
       const data = response.data;
 
-      // Adicionando a URL base a cada category_icon
       data.forEach(item => {
         if (item.category_icon) {
           item.category_icon = baseImageUrl + item.category_icon;

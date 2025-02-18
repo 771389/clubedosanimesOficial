@@ -6,7 +6,7 @@ const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 
 
 router.get('/episodios/:id', (req, res) => {
   const itemId = req.params.id;
-  const apiUrl = `https://animeland.appanimeplus.tk/videoweb/api.php?action=category_videos&category_id=${itemId}`;
+  const apiUrl = `https://animeland.atv2.net/videoweb/api.php?action=category_videos&category_id=${itemId}`;
   const axiosConfig = {
     headers: {
       'User-Agent': userAgent,

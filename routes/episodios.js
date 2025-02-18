@@ -9,7 +9,7 @@ const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 
 async function carregarEpisodiosDoAnime(animeId) {
   try {
 
-    const response = await axios.get(`https://animeland.appanimeplus.tk/videoweb/api.php?action=category_videos&category_id=${animeId}`, {
+    const response = await axios.get(`https://animeland.atv2.net/videoweb/api.php?action=category_videos&category_id=${animeId}`, {
       headers: {
         'User-Agent': userAgent,
       },

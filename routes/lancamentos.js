@@ -5,7 +5,7 @@ const axios = require('axios');
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36';
 
 router.get('/lancamentos', async (req, res) => {
-  const apiUrl = 'https://animeland.appanimeplus.tk/videoweb/api.php?action=latestvideos';
+  const apiUrl = 'https://animeland.atv2.net/videoweb/api.php?action=latestvideos';
 
   const axiosConfig = {
     headers: {
@@ -22,7 +22,7 @@ router.get('/lancamentos', async (req, res) => {
       try {
         const data = JSON.parse(responseData);
 
-        const baseUrlForImages = 'https://cdn.appanimeplus.tk/img/';
+        const baseUrlForImages = 'https://cdn.atv2.net/img/';
         data.forEach(item => {
           if (item.image && !item.image.startsWith('http')) {
             item.image = baseUrlForImages + item.image;
