@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(cors());
 
 // Rotas públicas (sem autenticação)
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/', routesimg);
 
 // Rotas protegidas (exigem autenticação)
