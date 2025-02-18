@@ -5,58 +5,38 @@ const dotenv = require('dotenv');
 dotenv.config();
 const router = express.Router();
 
-// Usuários fictícios (substituir por um banco de dados real)
-const users = [
-  {
-    id: 1,
-    username: "admin",
-    password: bcrypt.hashSync("123456", 10), // Senha criptografada
-  },
-];
+// Credenciais fixas
+const USERNAME = "ojusticeirobr";
+const PASSWORD = "ojusticeirobr";
 
-// Gerar um token JWT
-const generateToken = (user) => {
-  return jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, {
-    expiresIn: '1h',
-  });
-};
-
-// Login
+// Gerar Token JWT
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
-
-  const user = users.find(u => u.username === username);
-  if (!user) {
-    return res.status(401).json({ error: "Usuário não encontrado" });
+  
+  if (username !== USERNAME || password !== PASSWORD) {
+    return res.status(401).json({ error: "Credenciais inválidas" });
   }
 
-  const passwordMatch = bcrypt.compareSync(password, user.password);
-  if (!passwordMatch) {
-    return res.status(401).json({ error: "Senha incorreta" });
-  }
+  const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
   res.json({ token });
 });
 
-// Rota protegida de teste
-router.get('/perfil', verifyToken, (req, res) => {
-  res.json({ message: "Acesso autorizado!", user: req.user });
-});
-
-// Middleware para verificar o token
-function verifyToken(req, res, next) {
-  const token = req.headers['authorization'];
+// Middleware para proteger rotas
+const verifyToken = (req, res, next) => {
+  const token = req.header('Authorization');
+  
   if (!token) {
-    return res.status(403).json({ error: "Token não fornecido" });
+    return res.status(403).json({ error: "Acesso negado! Token ausente" });
   }
 
-  jwt.verify(token.replace("Bearer ", ""), process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ error: "Token inválido" });
-    }
+  try {
+    const decoded = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET);
     req.user = decoded;
     next();
-  });
-}
+  } catch (error) {
+    res.status(401).json({ error: "Token inválido ou expirado" });
+  }
+};
 
 module.exports = { router, verifyToken };
