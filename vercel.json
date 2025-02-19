@@ -11,5 +11,8 @@
       "src": "/api/(.*)",
       "dest": "api/index.js"
     }
+  ],
+  "includeFiles": [
+    "api/routes/**"
   ]
 }
