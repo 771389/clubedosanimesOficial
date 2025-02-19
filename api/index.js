@@ -37,11 +37,11 @@ app.use('/api/auth', authRoutes);
 app.use('/api/imagens', routesimg);
 
 // 🔹 Rotas protegidas (JWT necessário)
-app.use('/api/home', verifyToken, [
-  routesanmdub, routescategorias, routescategoria, 
-  routesfilte, routesanmleg, routeslancamentos, 
-  routespopulares
-]);
+app.use('/api/home/anime_dub', verifyToken, routesanmdub);
+app.use('/api/home/anime_leg', verifyToken, routesanmleg);
+app.use('/api/home/lancamentos', verifyToken, routeslancamentos);
+app.use('/api/home/populares', verifyToken, routespopulares);
+
 
 app.use('/api/filmes', verifyToken, [routesfilmedub, routesfilmeleg]);
 app.use('/api/anime', verifyToken, [routesdetalhes, routesepisodios, routeseps, routespesquisar]);
