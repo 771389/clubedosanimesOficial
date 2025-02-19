@@ -5,11 +5,14 @@ const path = require('path');
 
 dotenv.config();
 
+const { router: authRoutes, verifyToken } = require('./auth');
+
 const app = express();
+
 app.use(express.json());
 app.use(cors());
 
-// Importação correta das rotas da pasta "routes/"
+// 🔹 Importação correta das rotas dentro da pasta "routes"
 const routesanmdub = require('./routes/anime_dub');
 const routesanmleg = require('./routes/anime_leg');
 const routesfilmedub = require('./routes/filme_dub');
@@ -25,24 +28,28 @@ const routescategorias = require('./routes/categorias');
 const routescategoria = require('./routes/categoria');
 const routesfilte = require('./routes/filte');
 
+console.log("🔹 Rotas carregadas:", Object.keys(authRoutes));
 
-// Definição das rotas da API
-app.use('/api/home', [
-  routesanmdub, routescategorias, routescategoria,
-  routesfilte, routesanmleg, routeslancamentos,
+// 🔹 Definição de rotas (agora todas estão dentro de `/api/`)
+app.use('/api/auth', authRoutes);
+app.use('/api/imagens', routesimg);
+app.use('/api/home', verifyToken, [
+  routesanmdub, routescategorias, routescategoria, 
+  routesfilte, routesanmleg, routeslancamentos, 
   routespopulares
 ]);
+app.use('/api/filmes', verifyToken, [routesfilmedub, routesfilmeleg]);
+app.use('/api/anime', verifyToken, [routesdetalhes, routesepisodios, routeseps, routespesquisar]);
 
-app.use('/api/filmes', [routesfilmedub, routesfilmeleg]);
-app.use('/api/anime', [routesdetalhes, routesepisodios, routeseps, routespesquisar]);
-app.use('/api/imagens', routesimg);
+// 🔹 Rota para arquivos estáticos (opcional, caso precise servir HTML/CSS/JS do `public`)
+app.use(express.static(path.join(__dirname, '../public')));
 
-// Rota de erro 404
+// 🔹 Rota para erros 404
 app.use('*', (req, res) => {
   res.status(404).json({ error: "Rota não encontrada" });
 });
 
-// Inicializa o servidor na porta definida no .env ou 8000 por padrão
+// 🔹 Inicia o servidor na porta definida no .env ou 8000 por padrão
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
