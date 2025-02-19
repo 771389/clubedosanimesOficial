@@ -7,6 +7,9 @@ const router = express.Router();
 const USERNAME = "ojusticeirobr";
 const PASSWORD = "ojusticeirobr";
 
+// 🔹 Defina um segredo fixo (NÃO SEGURO para produção!)
+const JWT_SECRET = "meusegredofixo";
+
 // Gerar Token JWT
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
@@ -15,7 +18,7 @@ router.post('/login', (req, res) => {
     return res.status(401).json({ error: "Credenciais inválidas" });
   }
 
-  const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" });
+  const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: "1h" });
 
   res.json({ token });
 });
@@ -29,7 +32,7 @@ const verifyToken = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET);
+    const decoded = jwt.verify(token.replace('Bearer ', ''), JWT_SECRET);
     req.user = decoded;
     next();
   } catch (error) {
