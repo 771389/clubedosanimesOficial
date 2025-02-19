@@ -10,20 +10,21 @@ app.use(express.json());
 app.use(cors());
 
 // Importação correta das rotas da pasta "routes/"
-const routesanmdub = require(path.join(__dirname, '../routes/anime_dub'));
-const routesanmleg = require(path.join(__dirname, '../routes/anime_leg'));
-const routesfilmedub = require(path.join(__dirname, '../routes/filme_dub'));
-const routesfilmeleg = require(path.join(__dirname, '../routes/filme_leg'));
-const routeslancamentos = require(path.join(__dirname, '../routes/lancamentos'));
-const routesdetalhes = require(path.join(__dirname, '../routes/detalhes'));
-const routesepisodios = require(path.join(__dirname, '../routes/episodios'));
-const routespopulares = require(path.join(__dirname, '../routes/populares'));
-const routespesquisar = require(path.join(__dirname, '../routes/pesquisar'));
-const routeseps = require(path.join(__dirname, '../routes/listaEP'));
-const routesimg = require(path.join(__dirname, '../routes/imagens'));
-const routescategorias = require(path.join(__dirname, '../routes/categorias'));
-const routescategoria = require(path.join(__dirname, '../routes/categoria'));
-const routesfilte = require(path.join(__dirname, '../routes/filte'));
+const routesanmdub = require('./routes/anime_dub');
+const routesanmleg = require('./routes/anime_leg');
+const routesfilmedub = require('./routes/filme_dub');
+const routesfilmeleg = require('./routes/filme_leg');
+const routeslancamentos = require('./routes/lancamentos');
+const routesdetalhes = require('./routes/detalhes');
+const routesepisodios = require('./routes/episodios');
+const routespopulares = require('./routes/populares');
+const routespesquisar = require('./routes/pesquisar');
+const routeseps = require('./routes/listaEP');
+const routesimg = require('./routes/imagens');
+const routescategorias = require('./routes/categorias');
+const routescategoria = require('./routes/categoria');
+const routesfilte = require('./routes/filte');
+
 
 // Definição das rotas da API
 app.use('/api/home', [
