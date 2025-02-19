@@ -49,6 +49,16 @@ app.use('*', (req, res) => {
   res.status(404).json({ error: "Rota não encontrada" });
 });
 
+
+
+app._router.stack.forEach((r) => {
+  if (r.route && r.route.path) {
+    console.log(`✅ Rota carregada: ${r.route.path}`);
+  }
+});
+
+
+
 // Inicia o servidor
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
