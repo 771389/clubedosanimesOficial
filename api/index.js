@@ -7,20 +7,21 @@ dotenv.config();
 const { router: authRoutes, verifyToken } = require('./auth'); // Certo, pois está na mesma pasta
 
 // Importação das rotas (Agora corretamente dentro de `api/routes/`)
-const routesanmdub = require('./routes/anime_dub');
-const routesanmleg = require('./routes/anime_leg');
-const routesfilmedub = require('./routes/filme_dub');
-const routesfilmeleg = require('./routes/filme_leg');
-const routeslancamentos = require('./routes/lancamentos');
-const routesdetalhes = require('./routes/detalhes');
-const routesepisodios = require('./routes/episodios');
-const routespopulares = require('./routes/populares');
-const routespesquisar = require('./routes/pesquisar');
-const routeseps = require('./routes/listaEP');
-const routesimg = require('./routes/imagens');
-const routescategorias = require('./routes/categorias');
-const routescategoria = require('./routes/categoria');
-const routesfilte = require('./routes/filte');
+const routesanmdub = require('./api/routes/anime_dub');
+const routesanmleg = require('./api/routes/anime_leg');
+const routesfilmedub = require('./api/routes/filme_dub');
+const routesfilmeleg = require('./api/routes/filme_leg');
+const routeslancamentos = require('./api/routes/lancamentos');
+const routesdetalhes = require('./api/routes/detalhes');
+const routesepisodios = require('./api/routes/episodios');
+const routespopulares = require('./api/routes/populares');
+const routespesquisar = require('./api/routes/pesquisar');
+const routeseps = require('./api/routes/listaEP');
+const routesimg = require('./api/routes/imagens');
+const routescategorias = require('./api/routes/categorias');
+const routescategoria = require('./api/routes/categoria');
+const routesfilte = require('./api/routes/filte');
+
 
 const app = express();
 
