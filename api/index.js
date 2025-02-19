@@ -1,18 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const path = require('path');
 
 dotenv.config();
 
-const { router: authRoutes, verifyToken } = require('./auth');
+const { router: authRoutes, verifyToken } = require('./auth'); // Certo, pois está na mesma pasta
 
-const app = express();
-
-app.use(express.json());
-app.use(cors());
-
-// 🔹 Importação correta das rotas dentro da pasta "routes"
+// Importação das rotas (Agora corretamente dentro de `api/routes/`)
 const routesanmdub = require('./routes/anime_dub');
 const routesanmleg = require('./routes/anime_leg');
 const routesfilmedub = require('./routes/filme_dub');
@@ -28,29 +22,35 @@ const routescategorias = require('./routes/categorias');
 const routescategoria = require('./routes/categoria');
 const routesfilte = require('./routes/filte');
 
-console.log("🔹 Rotas carregadas:", Object.keys(authRoutes));
+const app = express();
 
-// 🔹 Definição de rotas (agora todas estão dentro de `/api/`)
+app.use(express.json());
+app.use(cors());
+
+// 🔹 Teste para ver se o servidor está carregando as rotas corretamente
+console.log("🔹 Rotas carregadas corretamente!");
+
+// 🔹 Rotas públicas
 app.use('/api/auth', authRoutes);
 app.use('/api/imagens', routesimg);
+
+// 🔹 Rotas protegidas (JWT necessário)
 app.use('/api/home', verifyToken, [
   routesanmdub, routescategorias, routescategoria, 
   routesfilte, routesanmleg, routeslancamentos, 
   routespopulares
 ]);
+
 app.use('/api/filmes', verifyToken, [routesfilmedub, routesfilmeleg]);
 app.use('/api/anime', verifyToken, [routesdetalhes, routesepisodios, routeseps, routespesquisar]);
 
-// 🔹 Rota para arquivos estáticos (opcional, caso precise servir HTML/CSS/JS do `public`)
-app.use(express.static(path.join(__dirname, '../public')));
-
-// 🔹 Rota para erros 404
+// Rota para erros 404
 app.use('*', (req, res) => {
   res.status(404).json({ error: "Rota não encontrada" });
 });
 
-// 🔹 Inicia o servidor na porta definida no .env ou 8000 por padrão
+// Inicia o servidor
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
+  console.log(`🚀 Servidor rodando na porta ${port}`);
 });
