@@ -1,8 +1,5 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-
-dotenv.config();
 
 const router = express.Router();
 
@@ -13,10 +10,6 @@ const PASSWORD = "ojusticeirobr";
 // Gerar Token JWT
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
-
-  if (!process.env.JWT_SECRET) {
-    return res.status(500).json({ error: "Erro interno: JWT_SECRET não está definido" });
-  }
 
   if (username !== USERNAME || password !== PASSWORD) {
     return res.status(401).json({ error: "Credenciais inválidas" });
