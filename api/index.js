@@ -8,7 +8,7 @@ dotenv.config();
 const { router: authRoutes, verifyToken } = require('./auth');
 
 // Importação correta das rotas
-const routesanmdub = require('../routes/anime_dub');
+const routesanmdub = require('./routes/anime_dub');
 const routesanmleg = require('../routes/anime_leg');
 const routesfilmedub = require('../routes/filme_dub');
 const routesfilmeleg = require('../routes/filme_leg');
