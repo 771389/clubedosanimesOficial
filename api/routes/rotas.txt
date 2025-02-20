@@ -1,0 +1,27 @@
+rotas funcionando
+FAZER LOGIN
+https://clubedosanimes.vercel.app/api/auth/login
+
+{
+  "usuario": "ojusticeirobr",
+  "senha": "ojusticeirobr"
+}
+
+
+filmes legendados
+https://clubedosanimes.vercel.app/api/filmes/legendados
+
+filmes dublados
+https://clubedosanimes.vercel.app/api/filmes/dublados
+
+animes lancamentos
+https://clubedosanimes.vercel.app/api/home/lancamentos
+
+animes populares
+https://clubedosanimes.vercel.app/api/home/populares
+
+rota pesquisar
+https://clubedosanimes.vercel.app/api/anime/pesquisar
+
+detalhe de um anime
+https://clubedosanimes.vercel.app/api/anime/detalhes
