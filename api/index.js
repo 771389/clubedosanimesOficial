@@ -41,6 +41,7 @@ app.use('/api/home/anime_dub', verifyToken, routesanmdub);
 app.use('/api/home/anime_leg', verifyToken, routesanmleg);
 app.use('/api/home/lancamentos', verifyToken, routeslancamentos);
 app.use('/api/home/populares', verifyToken, routespopulares);
+app.use('/api/categorias', verifyToken, routescategorias);
 
 
 
