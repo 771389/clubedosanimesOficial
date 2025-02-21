@@ -41,7 +41,7 @@ const categorias = [
 ];
 
 // Rota para categorias
-router.get('/categorias', (req, res) => {
+router.get('/', (req, res) => {
   res.json(categorias);
 });
 
