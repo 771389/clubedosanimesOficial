@@ -5,7 +5,7 @@ const axios = require('axios');
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36';
 
 // Rota para buscar animes por gênero
-router.get('/categoria/:genero', async (req, res) => {
+router.get('/:genero', async (req, res) => {
   const { genero } = req.params;
   const apiUrl = `https://animeland.atv2.net/videoweb/api.php?action=searchgenre&searchword=${genero}`;
 
