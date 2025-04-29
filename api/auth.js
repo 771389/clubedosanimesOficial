@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 // Credenciais fixas
-const USERNAME = "ojusticeirobr";
-const PASSWORD = "ojusticeirobr";
+const USERNAME = "clubezinho";
+const PASSWORD = "clubezinho";
 
 // 🔹 Defina um segredo fixo (NÃO SEGURO para produção!)
 const JWT_SECRET = "meusegredofixo";
