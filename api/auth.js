@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
+
+
 // Credenciais fixas
 const USERNAME = "clubezinho";
 const PASSWORD = "clubezinho";
